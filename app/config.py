@@ -1,4 +1,10 @@
 import os
+from flask import Flask
+
+UPLOAD_FOLDER = './uploads'
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+files = app.config['UPLOAD_FOLDER']
 
 class Config(object):
     """Base Config Object"""
