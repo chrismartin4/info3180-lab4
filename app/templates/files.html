@@ -2,10 +2,12 @@
 
 {% block main %}
 
-<ul class="images">
-    {% for img in lst %}
-        <li><img src="{{ url_for('get_image', filename=img) }}" /></li>
-    {% endfor %}
-</ul>
+<div class = "imggrid">
+    <ul class="images">
+        {% for img in lst %}
+            <li><img src="{{ url_for('get_image', filename=img) }}" /></li>
+        {% endfor %}
+    </ul>
+</div>
 
 {% endblock %}

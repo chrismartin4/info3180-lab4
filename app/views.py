@@ -55,7 +55,8 @@ def get_uploaded_images():
     imgs = os.path.join(imgfiles)
     for root, dirs, files in os.walk(imgs):
         for file in files:
-            lst.append(file)
+            if file.lower().endswith(('.jpg', '.png')):
+                lst.append(file)
     return lst
 
 @app.route('/upload/<filename>')
@@ -63,7 +64,7 @@ def get_image(filename):
     rootdir = os.getcwd()
     return send_from_directory(os.path.join(rootdir, imgfiles), filename)
 
-@app.route('/upload/files')
+@app.route('/files')
 def files():
     lst = get_uploaded_images()
     if not session.get('logged_in'):

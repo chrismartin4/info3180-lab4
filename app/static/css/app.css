@@ -1,3 +1,25 @@
 body {
     padding-top: 5rem;
 }
+
+ul{
+    list-style-type: none;
+}
+
+.images {
+    display: grid;
+    grid-auto-rows: 20rem;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 20px;
+}
+
+.images img{
+    height: 80%;
+    width: 80%;
+    object-fit: cover;
+}
+
+.imggrid {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
