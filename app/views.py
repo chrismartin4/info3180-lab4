@@ -8,8 +8,9 @@ import os
 from app import app
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.utils import secure_filename
+from flask import send_from_directory
 from app.forms import UploadForm
-from app.config import files
+from app.config import imgfiles
 
 
 ###
@@ -43,11 +44,30 @@ def upload():
         # Get file data and save to your uploads folder
         image = request.files['image']
         filename = secure_filename(image.filename)
-        image.save(os.path.join(files, filename))
+        image.save(os.path.join(imgfiles, filename))
         flash('File Saved', 'success')
         return redirect(url_for('home'))
 
     return render_template('upload.html', form=form)
+
+def get_uploaded_images():
+    lst = []
+    imgs = os.path.join(imgfiles)
+    for root, dirs, files in os.walk(imgs):
+        for file in files:
+            lst.append(file)
+    return lst
+
+@app.route('/upload/<filename>')
+def get_image(filename):
+    rootdir = os.getcwd()
+    return send_from_directory(os.path.join(rootdir, imgfiles), filename)
+
+@app.route('/upload/files')
+def files():
+    lst = get_uploaded_images()
+    return render_template("files.html", lst=lst)
+
 
 
 @app.route('/login', methods=['POST', 'GET'])
